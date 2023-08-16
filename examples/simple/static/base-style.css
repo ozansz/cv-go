@@ -1,0 +1,125 @@
+html, body {
+	/* width: 70vw; */
+	width: 90vw;
+	margin: 0.5vh auto;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	margin: 0;
+	margin-bottom: 0.4em;
+}
+
+h2, h3, h4, h5, h6 {
+	font-weight: 400;
+}
+
+p {
+	margin: 0;
+}
+
+.header {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+}
+
+.contact {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: center;
+
+	margin: 1.5em 0;
+}
+
+.contact-item {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+
+.contact-item:not(:last-child) {
+	margin-right: 2em;
+}
+
+.contact-text {
+	margin-left: 0.5em;
+}
+
+/* .contact-icon {
+	color: rgb(185, 147, 255);
+} */
+ion-icon {
+	color: rgb(185, 147, 255);
+}
+
+.header .tldr {
+	font-size: 0.8em;
+}
+
+.cv-content {
+	column-count: 2;
+	column-gap: 1.5em;
+	margin-top: 1em;
+}
+
+.cv-content a {
+	color: #f0f0f0;
+}
+
+.top-block {
+	margin-bottom: 1em;
+}
+
+.block {
+	margin-bottom: 1.5em;
+}
+
+.block-header-row {
+	color: #f0f0f0;
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	align-content: space-between;
+	margin-bottom: 0.5em;
+}
+
+.block-header-row .left {
+	flex: 1;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+
+.block-header-row .right {
+	display: flex;
+	flex-direction: row;
+	text-align: right;
+	align-items: center;
+}
+
+.block-header-row p {
+	margin: 0;
+}
+
+.block-header-row ion-icon {
+	margin-right: 0.5em;
+}
+
+.date-start-item::after {
+	content: '-';
+	padding: 0 0.5em;
+}
+
+.block .block-header-row:nth-child(1) {
+	margin-bottom: 0;
+}
+
+.block .block-header-row:nth-child(2) {
+	font-size: 0.8em;
+}
+
+.block .content {
+	font-size: 0.8em;
+}
+

@@ -1,0 +1,42 @@
+meta:
+  css:
+    - url: https://sazak.io/static/master.css
+    - file: static/base-style.css # File path is relative to working dir while running the builder
+
+header:
+  name: Ozan Sazak
+  title: Software Engineer
+  tldr: Hi! I'm Ozan Sazak. I am a software engineer currently focused on platform engineering, managing Clickhouse clusters on Kubernetes. I write an engineering blog at sazak.io and talk at conferences and other tech events.
+  contacts:
+    - type: website
+      text: sazak.io
+    - type: email
+      text: ozan.sazak@protonmail.ch
+    - type: github
+      text: ozansz
+    - type: linkedin
+      text: Ozan Sazak
+      link: https://linkedin.com/in/ozan-sazak/
+    - type: twitter
+      text: oznszk
+
+jobs:
+  - title: Software Engineer I
+    company: Edge Delta
+    location: Remote (Europe)
+    start: Sep 2022
+    tldr: Lorem ipsum dolor sit amet
+
+projects:
+  - name: gls (Graphical ls)
+    repo: ozansz/gls
+    start: '2022'
+    end: '2023'
+    tldr: Minimal file manager with terminal UI, powered by Go
+  - name: sazak.io
+    start: Aug 2023
+    tldr: sazak.io is my personal website and blog. I built a static site generator blog engine using Go and HTML/CSS/JS.
+  - name: cv-go
+    repo: ozansz/cv-go
+    start: Aug 2023
+    tldr: CV builder tool to render cool PDF CVs from a YAML description. Coded using Go and HTML/CSS. Used to create this CV you're reading.
