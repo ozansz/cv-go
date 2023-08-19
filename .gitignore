@@ -25,4 +25,4 @@ go.work
 cv.pdf
 *.html
 .vscode/
-.DS_Store/
+.DS_Store

@@ -2,6 +2,9 @@ meta:
   css:
     - url: https://sazak.io/static/master.css
     - file: static/base-style.css # File path is relative to working dir while running the builder
+    - file: static/custom.css
+  render:
+    scale: 0.75
 
 header:
   name: Ozan Sazak
@@ -38,13 +41,8 @@ education:
     cgpa: 3.24/4
     start: '2017'
     end: '2022'
-    tldr: Lorem ipsum dolor sit amet
-    notable:
-      - Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-      - Proin hendrerit ex vitae mi mollis elementum.
-      - Vivamus eu magna tempor felis convallis interdum.
-      - Aenean fringilla ex venenatis, mollis turpis eget, tristique odio.
-      - Integer volutpat eros at elementum vestibulum.
+    tldr: |
+      [CENG536](https://catalog.metu.edu.tr/course.php?prog=571&course_code=5710536) Advanced UNIX, [CENG532](https://catalog.metu.edu.tr/course.php?prog=571&course_code=5710532) Distributed Computing Systems, [CENG797](https://catalog.metu.edu.tr/course.php?prog=571&course_code=5710797) Ad Hoc Networks, [CENG488](https://catalog.metu.edu.tr/course.php?prog=571&course_code=5710488) Guided Research [CENG444](https://catalog.metu.edu.tr/course.php?prog=571&course_code=5710797) Language Processors (Compilers), [CENG489](https://catalog.metu.edu.tr/course.php?prog=571&course_code=5710489) Intro. to Comp. Security
 
 projects:
   - name: gls (Graphical ls)
@@ -57,7 +55,7 @@ projects:
       url: https://sazak.io/?utm_source=cv
       title: sazak.io
     start: Aug 2023
-    tldr: sazak.io is my personal website and blog. I built a static site generator blog engine using Go and HTML/CSS/JS.
+    tldr: sazak.io is my personal website and blog. I built a static site generator blog engine using Go and HTML/CSS/JS, which sazak.io uses as backbone,.
   - name: cv-go
     repo: ozansz/cv-go
     start: Aug 2023
@@ -69,3 +67,27 @@ projects:
     tldr: |
       Afetbilgi (Disaster info) is a verified information database for 6 February 2023 Pazarcık/Turkey Earthquake victims. The project was initialized by a group of Turkish volunteer software engineers, including myself, to help the people affected by the earthquake directly or indirectly.
       I was in the core team who developed the infrastructure and the web app using Cloudflare, AWS S3, Github Actions, Python and React.
+
+skills:
+  lang:
+    Turkish:
+      native: true
+    English:
+      reading: C1
+      writing: C1
+      speaking: C1
+      listening: C1
+    Spanish:
+      reading: A1
+      writing: A1
+      speaking: A1
+      listening: A1
+    Japanese:
+      reading: A1
+      writing: A1
+      speaking: A1
+      listening: A1
+  categorical:
+    Technologies: AWS, Kubernetes, Clickhouse
+    Languages: Go, Python, C,Rust
+    Other: System design

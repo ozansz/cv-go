@@ -4,13 +4,13 @@ import (
 	"bytes"
 	"context"
 	"fmt"
-	"html/template"
 	"io"
 	"log"
 	"net/http"
 	"net/http/httptest"
 	"os"
 	"strings"
+	"text/template"
 	"time"
 
 	"github.com/chromedp/cdproto/page"
@@ -26,6 +26,8 @@ const (
 	httpTimeout       = 10 * time.Second
 	tempStyleFileName = "cv-go-style"
 	tempHTMLFileName  = "cv-go-out"
+
+	defaultScale = 0.8
 )
 
 type Builder interface {
@@ -134,7 +136,12 @@ func (b *builder) Build() (string, error) {
 	}
 	htmlPath := fmt.Sprintf("file://%s/%s", cwd, htmlFile)
 
-	if err := saveURLToPDF(htmlPath, b.outPath, 0.8); err != nil {
+	scale := defaultScale
+	if b.conf.Meta != nil && b.conf.Meta.Render != nil && b.conf.Meta.Render.Scale != nil {
+		scale = *b.conf.Meta.Render.Scale
+	}
+
+	if err := saveURLToPDF(htmlPath, b.outPath, scale); err != nil {
 		return "", fmt.Errorf("failed to save CV as PDF: %w", err)
 	}
 

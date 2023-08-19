@@ -134,6 +134,7 @@ ion-icon {
 
 .block .content {
 	font-size: 0.8em;
+	/* text-align: left; */
 }
 
 .block .content:not(:last-child) {
@@ -149,4 +150,49 @@ ul.bullet-points {
     margin: 0;
     text-align: left;
     padding-left: 1em;
+}
+
+a.markdown-link::after, a.markdown-link::before {
+	display: none;
+}
+
+a.markdown-link {
+    display: inline-flex;
+	flex-direction: row;
+    align-items: center;
+	text-decoration: underline;
+}
+
+span.markdown-link-text {
+	margin-right: 0.1em;
+}
+
+table.lang-skills {
+	font-size: 0.8em;
+	font-weight: 400;
+	width: 100%;
+	margin-top: 0.8em;
+}
+
+table.lang-skills tr th {
+	font-weight: 400;
+	text-align: center;
+}
+
+td.lang-skills-data {
+	text-align: center;
+}
+
+td.lang-skill-lang {
+	color: #f0f0f0;
+}
+
+table.cat-skills {
+	font-size: 0.8em;
+	font-weight: 400;
+	width: 100%;
+}
+
+td.cat-skills-category {
+	color: rgb(185, 147, 255);
 }

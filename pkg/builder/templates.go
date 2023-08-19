@@ -149,6 +149,49 @@ const (
 			</div>
 			{{end}}
 		</div>
+
+		{{if .Conf.Skills}}
+		<div class="top-block">
+			<h2 class="subtitle">Skills</h2>
+			<div class="block">
+				<div class="content-container">
+					<table class="cat-skills">
+					{{range $category, $skills := .Conf.Skills.CategoricalSkills}}
+					<tr>	
+						<td class="cat-skills-category">{{$category}}</td>
+						<td>{{$skills}}</td>
+					</tr>
+					{{end}}
+					</table>
+
+					{{if .Conf.Skills.Languages}}
+					<table class="lang-skills">
+					<tr>
+						<th></th>
+						<th>Reading</th> 
+						<th>Writing</th>
+						<th>Speaking</th>
+						<th>Listening</th>
+					</tr>
+					{{range $lang, $skill := .Conf.Skills.Languages}}
+					<tr>
+						<td class="lang-skill-lang">{{$lang}}</td>
+						{{if .Native}}
+						<td class="lang-skills-data" colspan="4">Native</td>
+						{{else}}
+						<td class="lang-skills-data">{{if $skill.Reading}}{{$skill.Reading}}{{else}} - {{end}}</td>
+						<td class="lang-skills-data">{{if $skill.Writing}}{{$skill.Writing}}{{else}} - {{end}}</td>
+						<td class="lang-skills-data">{{if $skill.Speaking}}{{$skill.Speaking}}{{else}} - {{end}}</td>
+						<td class="lang-skills-data">{{if $skill.Listening}}{{$skill.Listening}}{{else}} - {{end}}</td>
+						{{end}}
+					</tr>
+					{{end}}
+					</table>
+					{{end}}
+				</div>
+			</div>
+		</div>
+		{{end}}
 	</div>
 </body>
 </html>
