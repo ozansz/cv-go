@@ -13,6 +13,8 @@ import (
 var (
 	outputPath = flag.String("out", builder.DefaultOutputPath, fmt.Sprintf("Output path. Defaults to %q", builder.DefaultOutputPath))
 	configPath = flag.String("config", builder.DefaultConfigPath, fmt.Sprintf("Config YAML file path. Defaults to %q", builder.DefaultConfigPath))
+
+	noPDF = flag.Bool("no-pdf", false, "Just output HTML and CSS files")
 )
 
 func main() {
@@ -24,6 +26,9 @@ func main() {
 	}
 	if *configPath != "" {
 		opts = append(opts, builder.WithConfigPath(*configPath))
+	}
+	if *noPDF {
+		opts = append(opts, builder.WithNoPDF())
 	}
 
 	b, err := builder.New(opts...)

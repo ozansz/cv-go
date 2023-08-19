@@ -49,10 +49,70 @@ const (
 						<p>{{.Location}}</p>
 					</div>
 				</div>
-				<p class="content">{{.Description}}</p>
+
+				<div class="content-container">
+					{{range .DescriptionLines}}
+					<p class="content">{{.}}</p>
+					{{end}}
+
+					<ul class="bullet-points">
+						{{range .BulletPoints}}
+						<li>{{.}}</li>
+						{{end}}
+					</ul>
+				</div>
 			</div>
 			{{end}}
 		</div>
+
+		<div class="top-block">
+			<h2 class="subtitle">Education</h2>
+			{{range .Conf.Education}}
+			<div class="block">
+				<div class="block-header-row">
+					<div class="left">{{.Title}}</div>
+				</div>
+
+				<div class="block-header-row">
+					<div class="left">
+						<ion-icon name="business-outline"></ion-icon>
+						<p>{{.School}}</p>
+					</div>
+					{{if .CGPA}}
+					<div class="right">
+						<p class="tinted-block-elem">CGPA:</p>
+						<p>{{.CGPA}}</p>
+					</div>
+					{{end}}
+				</div>
+
+				<div class="block-header-row">
+					<div class="left">
+						<ion-icon name="calendar-outline"></ion-icon>
+						<p class="date-start-item">{{.StartDate}}</p>
+						<p>{{if .EndDate}}{{.EndDate}}{{else}}Current{{end}}</p>
+					</div>
+					<div class="right">
+						<ion-icon name="location-outline"></ion-icon>
+						<p>{{.Location}}</p>
+					</div>
+				</div>
+
+				<div class="content-container">
+					{{range .DescriptionLines}}
+					<p class="content">{{.}}</p>
+					{{end}}
+
+					<ul class="bullet-points">
+						{{range .BulletPoints}}
+						<li>{{.}}</li>
+						{{end}}
+					</ul>
+				</div>
+			</div>
+			{{end}}
+		</div>
+
 		<div class="top-block">
 			<h2 class="subtitle">Projects</h2>
 			{{range .Conf.Projects}}
@@ -60,10 +120,17 @@ const (
 				<div class="block-header-row">
 					<div class="left">{{.Name}}</div>
 					{{if .GithubRepo}}
-					<a class="right" href="https://github.com/{{.GithubRepo}}">
+					<a class="right project-link" href="https://github.com/{{.GithubRepo}}">
 						<ion-icon name="logo-github"></ion-icon>
 						<div>{{.GithubRepo}}</div>
 					</a>
+					{{else}}
+					{{if .Link}}
+					<a class="right project-link" href="{{.Link.URL}}">
+						<ion-icon name="link-outline"></ion-icon>
+						<div>{{.Link.Title}}</div>
+					</a>
+					{{end}}
 					{{end}}
 				</div>
 				<div class="block-header-row">
@@ -73,7 +140,12 @@ const (
 						<p>{{if .EndDate}}{{.EndDate}}{{else}}Current{{end}}</p>
 					</div>
 				</div>
-				<p class="content">{{.Description}}</p>
+				
+				<div class="content-container">
+					{{range .DescriptionLines}}
+					<p class="content">{{.}}</p>
+					{{end}}
+				</div>
 			</div>
 			{{end}}
 		</div>

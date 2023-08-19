@@ -33,6 +33,7 @@ type Builder interface {
 
 	setOutputPath(string)
 	setConfigPath(string)
+	setNoPDF()
 }
 
 type Option func(Builder)
@@ -49,10 +50,17 @@ func WithConfigPath(path string) Option {
 	}
 }
 
+func WithNoPDF() Option {
+	return func(b Builder) {
+		b.setNoPDF()
+	}
+}
+
 type builder struct {
 	conf     *Config
 	outPath  string
 	confPath string
+	noPDF    bool
 	httpCl   *http.Client
 }
 
@@ -96,10 +104,16 @@ func (b *builder) Build() (string, error) {
 	if err != nil {
 		return "", fmt.Errorf("failed to parse CV template: %w", err)
 	}
+
+	styleFile := fmt.Sprintf("%s/%s", ts.URL, cssFile)
+	if b.noPDF {
+		styleFile = "/" + cssFile
+	}
+
 	var buf bytes.Buffer
 	if err := tmpl.Execute(&buf, CVTemplateData{
 		Conf:      b.conf,
-		StyleFile: fmt.Sprintf("%s/%s", ts.URL, cssFile),
+		StyleFile: styleFile,
 	}); err != nil {
 		return "", fmt.Errorf("failed to execute CV template: %w", err)
 	}
@@ -108,6 +122,10 @@ func (b *builder) Build() (string, error) {
 	htmlFile := tempHTMLFileName + ".html"
 	if err := os.WriteFile(htmlFile, buf.Bytes(), 0666); err != nil {
 		return "", fmt.Errorf("failed to create temporary CV HTML: %w", err)
+	}
+
+	if b.noPDF {
+		return htmlFile, nil
 	}
 
 	cwd, err := os.Getwd()
@@ -129,6 +147,10 @@ func (b *builder) setOutputPath(path string) {
 
 func (b *builder) setConfigPath(path string) {
 	b.confPath = path
+}
+
+func (b *builder) setNoPDF() {
+	b.noPDF = true
 }
 
 func (b *builder) getPDFStyle() (string, error) {

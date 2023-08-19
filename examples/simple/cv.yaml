@@ -11,21 +11,40 @@ header:
     - type: website
       text: sazak.io
     - type: email
-      text: ozan.sazak@protonmail.ch
+      text: hey@m.sazak.io
     - type: github
       text: ozansz
     - type: linkedin
       text: Ozan Sazak
       link: https://linkedin.com/in/ozan-sazak/
-    - type: twitter
-      text: oznszk
 
 jobs:
-  - title: Software Engineer I
+  - title: Software Engineer
     company: Edge Delta
     location: Remote (Europe)
     start: Sep 2022
     tldr: Lorem ipsum dolor sit amet
+    notable:
+      - Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+      - Proin hendrerit ex vitae mi mollis elementum.
+      - Vivamus eu magna tempor felis convallis interdum.
+      - Aenean fringilla ex venenatis, mollis turpis eget, tristique odio.
+      - Integer volutpat eros at elementum vestibulum.
+
+education:
+  - title: Computer Engineering, B.Sc.
+    school: Middle East Technical University
+    location: Ankara, Turkey
+    cgpa: 3.24/4
+    start: '2017'
+    end: '2022'
+    tldr: Lorem ipsum dolor sit amet
+    notable:
+      - Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+      - Proin hendrerit ex vitae mi mollis elementum.
+      - Vivamus eu magna tempor felis convallis interdum.
+      - Aenean fringilla ex venenatis, mollis turpis eget, tristique odio.
+      - Integer volutpat eros at elementum vestibulum.
 
 projects:
   - name: gls (Graphical ls)
@@ -34,9 +53,19 @@ projects:
     end: '2023'
     tldr: Minimal file manager with terminal UI, powered by Go
   - name: sazak.io
+    link:
+      url: https://sazak.io/?utm_source=cv
+      title: sazak.io
     start: Aug 2023
     tldr: sazak.io is my personal website and blog. I built a static site generator blog engine using Go and HTML/CSS/JS.
   - name: cv-go
     repo: ozansz/cv-go
     start: Aug 2023
     tldr: CV builder tool to render cool PDF CVs from a YAML description. Coded using Go and HTML/CSS. Used to create this CV you're reading.
+  - name: afetbilgi.com
+    repo: alpaylan/afetbilgi.com
+    start: Feb 2023
+    end: Mar 2023
+    tldr: |
+      Afetbilgi (Disaster info) is a verified information database for 6 February 2023 Pazarcık/Turkey Earthquake victims. The project was initialized by a group of Turkish volunteer software engineers, including myself, to help the people affected by the earthquake directly or indirectly.
+      I was in the core team who developed the infrastructure and the web app using Cloudflare, AWS S3, Github Actions, Python and React.

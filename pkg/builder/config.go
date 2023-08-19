@@ -3,6 +3,7 @@ package builder
 import (
 	"fmt"
 	"os"
+	"strings"
 
 	"gopkg.in/yaml.v2"
 )
@@ -44,6 +45,7 @@ var (
 type Config struct {
 	Header      CVHeader        `yaml:"header"`
 	Experiences []*CVExperience `yaml:"jobs"`
+	Education   []*CVEducation  `yaml:"education"`
 	Projects    []*CVProject    `yaml:"projects,omitempty"`
 
 	Meta *MetaConfig `yaml:"meta,omitempty"`
@@ -76,23 +78,44 @@ type Contact struct {
 }
 
 type CVExperience struct {
-	Title       string  `yaml:"title"`
-	Company     string  `yaml:"company"`
-	Description string  `yaml:"tldr"`
-	Location    *string `yaml:"location,omitempty"`
-	StartDate   string  `yaml:"start"`
-	EndDate     *string `yaml:"end,omitempty"`
+	Title        string   `yaml:"title"`
+	Company      string   `yaml:"company"`
+	Description  string   `yaml:"tldr"`
+	Location     *string  `yaml:"location,omitempty"`
+	StartDate    string   `yaml:"start"`
+	EndDate      *string  `yaml:"end,omitempty"`
+	BulletPoints []string `yaml:"notable,omitempty"`
 
-	// TODO: Find a way to add this to the design
-	// BulletPoints []string   `yaml:"notable,omitempty"`
+	DescriptionLines []string
 }
 
 type CVProject struct {
-	Name        string  `yaml:"name"`
-	Description string  `yaml:"tldr"`
-	StartDate   *string `yaml:"start,omitempty"`
-	EndDate     *string `yaml:"end,omitempty"`
-	GithubRepo  *string `yaml:"repo,omitempty"`
+	Name        string         `yaml:"name"`
+	Description string         `yaml:"tldr"`
+	StartDate   *string        `yaml:"start,omitempty"`
+	EndDate     *string        `yaml:"end,omitempty"`
+	GithubRepo  *string        `yaml:"repo,omitempty"`
+	Link        *CVProjectLink `yaml:"link,omitempty"`
+
+	DescriptionLines []string
+}
+
+type CVEducation struct {
+	Title        string   `yaml:"title"`
+	School       string   `yaml:"school"`
+	Location     string   `yaml:"location"`
+	CGPA         *string  `yaml:"cgpa,omitempty"`
+	StartDate    string   `yaml:"start"`
+	EndDate      *string  `yaml:"end,omitempty"`
+	Description  string   `yaml:"tldr"`
+	BulletPoints []string `yaml:"notable,omitempty"`
+
+	DescriptionLines []string
+}
+
+type CVProjectLink struct {
+	URL   string `yaml:"url"`
+	Title string `yaml:"title"`
 }
 
 type MetaConfig struct {
@@ -128,6 +151,13 @@ func ParseConfig(path string) (*Config, error) {
 		if err := c.Meta.validateCSSImports(); err != nil {
 			return nil, err
 		}
+	}
+
+	for _, p := range c.Projects {
+		p.DescriptionLines = strings.Split(p.Description, "\n")
+	}
+	for _, p := range c.Experiences {
+		p.DescriptionLines = strings.Split(p.Description, "\n")
 	}
 
 	return &c, nil
