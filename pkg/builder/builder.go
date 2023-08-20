@@ -4,28 +4,24 @@ import (
 	"bytes"
 	"context"
 	"fmt"
-	"io"
 	"log"
 	"net/http"
 	"net/http/httptest"
 	"os"
-	"strings"
 	"text/template"
 	"time"
 
 	"github.com/chromedp/cdproto/page"
 	"github.com/chromedp/chromedp"
-	"github.com/google/uuid"
-	"golang.org/x/exp/slog"
+	"go.sazak.io/cv-go/pkg/builder/themes"
 )
 
 const (
 	DefaultConfigPath = "cv.yaml"
 	DefaultOutputPath = "cv.pdf"
 
-	httpTimeout       = 10 * time.Second
-	tempStyleFileName = "cv-go-style"
-	tempHTMLFileName  = "cv-go-out"
+	httpTimeout      = 10 * time.Second
+	tempHTMLFileName = "cv-go-out"
 
 	defaultScale = 0.8
 )
@@ -89,6 +85,9 @@ func (b *builder) Build() (string, error) {
 	cssFile, err := b.getPDFStyle()
 	if err != nil {
 		return "", fmt.Errorf("failed to fetch and merge CSS styles: %w", err)
+	}
+	if cssFile == "" {
+		return "", fmt.Errorf("there's no CSS file generated, you should specify meta.css or meta.theme")
 	}
 
 	cors := func(fs http.Handler) http.HandlerFunc {
@@ -161,54 +160,33 @@ func (b *builder) setNoPDF() {
 }
 
 func (b *builder) getPDFStyle() (string, error) {
-	if b.conf.Meta == nil || len(b.conf.Meta.CSS) == 0 {
-		return "", nil
+	if b.conf.Meta == nil {
+		return themes.GetDefaultTheme().Collect(b.httpCl)
 	}
-
-	var sb strings.Builder
-
-	for index, c := range b.conf.Meta.CSS {
-		if c.File != nil {
-			b, err := os.ReadFile(*c.File)
-			if err != nil {
-				return "", fmt.Errorf("failed to read file content of CSS import #%d: %w", index, err)
-			}
-			sb.Write(b)
-			sb.WriteRune('\n')
-		} else if c.URL != nil {
-			req, err := http.NewRequest(http.MethodGet, *c.URL, nil)
-			if err != nil {
-				return "", fmt.Errorf("failed to create HTTP request for CSS import #%d: %w", index, err)
-			}
-			res, err := b.httpCl.Do(req)
-			if err != nil {
-				return "", fmt.Errorf("failed to do HTTP request for CSS import #%d: %w", index, err)
-			}
-			defer res.Body.Close()
-
-			data, err := io.ReadAll(res.Body)
-			if err != nil {
-				return "", fmt.Errorf("failed to read HTTP response body for CSS import #%d: %w", index, err)
-			}
-
-			sb.Write(data)
-			sb.WriteRune('\n')
+	if b.conf.Meta.Theme != nil {
+		col := themes.GetThemeCollection(*b.conf.Meta.Theme)
+		if col == nil {
+			return "", fmt.Errorf("there is no theme named %q", *b.conf.Meta.Theme)
 		}
+		return col.Collect(b.httpCl)
 	}
-
-	filename := fmt.Sprintf("%s-%s.css", tempStyleFileName, uuid.New().String()[:8])
-	f, err := os.Create(filename)
-	if err != nil {
-		return "", err
+	if len(b.conf.Meta.CSS) > 0 {
+		// Create a new collection with the specified CSS files
+		col := themes.NewCollection()
+		for _, cc := range b.conf.Meta.CSS {
+			if cc.File != nil {
+				b, err := os.ReadFile(*cc.File)
+				if err != nil {
+					return "", fmt.Errorf("failed to read specified CSS file %q: %w", *cc.File, err)
+				}
+				col.Inline(string(b))
+			} else if cc.URL != nil {
+				col.URL(*cc.URL)
+			}
+		}
+		return col.Collect(b.httpCl)
 	}
-	defer f.Close()
-
-	if _, err := f.WriteString(sb.String()); err != nil {
-		return "", err
-	}
-	slog.Info("Successfully merged style files")
-
-	return filename, nil
+	return "", nil // No theme or CSS specified
 }
 
 func saveURLToPDF(url string, outPath string, scale float64) error {

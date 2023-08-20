@@ -147,6 +147,7 @@ type LanguageSkill struct {
 type MetaConfig struct {
 	CSS    []*CSSConfig  `yaml:"css,omitempty"`
 	Render *RenderConfig `yaml:"render,omitempty"`
+	Theme  *string       `yaml:"theme,omitempty"`
 }
 
 type RenderConfig struct {

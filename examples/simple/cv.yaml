@@ -1,8 +1,10 @@
 meta:
-  css:
-    - url: https://sazak.io/static/master.css
-    - file: static/base-style.css # File path is relative to working dir while running the builder
-    - file: static/custom.css
+  # css:
+  #   - url: https://sazak.io/static/master.css
+  #   - file: static/base-style.css # File path is relative to working dir while running the builder
+  #   - file: static/custom.css
+  theme: sazak
+  
   render:
     scale: 0.75
 
