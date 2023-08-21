@@ -8,6 +8,8 @@ const (
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	
+	{{if .Theme}}<meta name="cv-go-theme" content="{{.Theme}}">{{end}}
+
 	<link rel="stylesheet" href="{{.StyleFile}}">
 
 	<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
@@ -201,4 +203,5 @@ const (
 type CVTemplateData struct {
 	Conf      *Config
 	StyleFile string
+	Theme     string
 }

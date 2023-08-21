@@ -24,9 +24,15 @@ const (
 
 var (
 	defaultTheme = NewCollection().
-			URL(sazakBaseThemeCSS).Inline(sazakStyleCustomization)
+			URL(sazakBaseThemeCSS).
+			Inline(sazakStyleCustomization)
+
 	allThemes = map[string]Collection{
 		"sazak": defaultTheme,
+		"sazak-light": NewCollection().
+			URL(sazakLightBaseThemeCSS).
+			Inline(sazakLightBaseStyleCustomization).
+			Inline(sazakLightStyleCustomization),
 	}
 )
 

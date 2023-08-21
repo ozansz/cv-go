@@ -111,10 +111,16 @@ func (b *builder) Build() (string, error) {
 		styleFile = "/" + cssFile
 	}
 
+	var themeSpecified string
+	if b.conf.Meta != nil && b.conf.Meta.Theme != nil {
+		themeSpecified = *b.conf.Meta.Theme
+	}
+
 	var buf bytes.Buffer
 	if err := tmpl.Execute(&buf, CVTemplateData{
 		Conf:      b.conf,
 		StyleFile: styleFile,
+		Theme:     themeSpecified,
 	}); err != nil {
 		return "", fmt.Errorf("failed to execute CV template: %w", err)
 	}
