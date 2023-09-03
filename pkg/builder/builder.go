@@ -169,16 +169,22 @@ func (b *builder) getPDFStyle() (string, error) {
 	if b.conf.Meta == nil {
 		return themes.GetDefaultTheme().Collect(b.httpCl)
 	}
+	if b.conf.Meta.Theme == nil && len(b.conf.Meta.CSS) == 0 {
+		return "", nil // No theme or CSS specified
+	}
+	var col themes.Collection
 	if b.conf.Meta.Theme != nil {
-		col := themes.GetThemeCollection(*b.conf.Meta.Theme)
+		col = themes.GetThemeCollection(*b.conf.Meta.Theme)
 		if col == nil {
 			return "", fmt.Errorf("there is no theme named %q", *b.conf.Meta.Theme)
 		}
-		return col.Collect(b.httpCl)
 	}
 	if len(b.conf.Meta.CSS) > 0 {
-		// Create a new collection with the specified CSS files
-		col := themes.NewCollection()
+		if col == nil {
+			// Create a new collection with the specified CSS files if there's no theme specified
+			col = themes.NewCollection()
+		}
+		// Add the specified CSS files to the collection
 		for _, cc := range b.conf.Meta.CSS {
 			if cc.File != nil {
 				b, err := os.ReadFile(*cc.File)
@@ -190,9 +196,8 @@ func (b *builder) getPDFStyle() (string, error) {
 				col.URL(*cc.URL)
 			}
 		}
-		return col.Collect(b.httpCl)
 	}
-	return "", nil // No theme or CSS specified
+	return col.Collect(b.httpCl)
 }
 
 func saveURLToPDF(url string, outPath string, scale float64) error {
