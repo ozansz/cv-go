@@ -2,7 +2,14 @@ package themes
 
 const (
 	sazakBaseThemeCSS       = "https://sazak.io/static/master.css"
-	sazakStyleCustomization = `html, body {
+	sazakStyleCustomization = `
+@import url('https://fonts.cdnfonts.com/css/calibri-light');
+
+* {
+	font-family: 'Calibri Light', sans-serif;
+}
+
+html, body {
 	/* width: 70vw; */
 	width: 90vw;
 	margin: 0.5vh auto;
@@ -201,5 +208,16 @@ table.cat-skills {
 
 td.cat-skills-category {
 	color: rgb(185, 147, 255);
-}`
+}
+
+h2 {
+	margin: 0;
+}
+
+div.top-block > hr {
+	margin: 0.2em 0 1em 0;
+	border: 0.8px solid;
+	color: #999;
+}
+`
 )

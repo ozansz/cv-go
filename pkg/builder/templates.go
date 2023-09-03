@@ -34,6 +34,7 @@ const (
 	<div class="cv-content">
 		<div class="top-block">
 			<h2 class="subtitle">Experience</h2>
+			<hr/>
 			{{range .Conf.Experiences}}
 			<div class="block">
 				<div class="block-header-row">
@@ -69,6 +70,7 @@ const (
 
 		<div class="top-block">
 			<h2 class="subtitle">Education</h2>
+			<hr/>
 			{{range .Conf.Education}}
 			<div class="block">
 				<div class="block-header-row">
@@ -117,6 +119,7 @@ const (
 
 		<div class="top-block">
 			<h2 class="subtitle">Projects</h2>
+			<hr/>
 			{{range .Conf.Projects}}
 			<div class="block">
 				<div class="block-header-row">
@@ -155,6 +158,7 @@ const (
 		{{if .Conf.Skills}}
 		<div class="top-block">
 			<h2 class="subtitle">Skills</h2>
+			<hr/>
 			<div class="block">
 				<div class="content-container">
 					<table class="cat-skills">
